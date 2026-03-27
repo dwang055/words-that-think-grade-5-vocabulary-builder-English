@@ -1227,7 +1227,7 @@ footer {
   </div>
 
   <footer>
-    <div class="footer-author">Created by Daniel Wang (dwang055@gmail.com)· Grade 5 Vocabulary Collection · For Educational Use · © 2026</div>
+    <div class="footer-author">Created by Daniel Wang · Grade 5 Vocabulary Collection · For Educational Use · © 2026</div>
     <div class="footer-quote">“The more that you read, the more things you will know. The more that you learn, the more places you'll go.”<br>Dr. Seuss, I Can Read With My Eyes Shut!</div>
   </footer>
 </div>
@@ -3090,11 +3090,11 @@ function render() {
   if (S.sentTab === 0) {
     sentEn = highlightWord(entry.quote_en, entry.word);
     sentZh = entry.quote_zh;
-    sentSource = '— ' + BOOK_CONFIG.author + ', <em>' + BOOK_CONFIG.bookName + '</em> · ' + entry.chapter;
+    sentSource = '';
   } else {
     sentEn = highlightWord(entry.ex_en, entry.word);
     sentZh = entry.ex_zh;
-    sentSource = '— AI Example · Thematically aligned with <em>' + BOOK_CONFIG.bookName + '</em>';
+    sentSource = '';
   }
   document.getElementById('sentEn').innerHTML = sentEn;
   document.getElementById('sentZh').textContent = sentZh;
