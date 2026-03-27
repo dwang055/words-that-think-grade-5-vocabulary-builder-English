@@ -1096,7 +1096,10 @@ footer {
         <div class="sent-en" id="sentEn" style="flex: 1;">—</div>
         <button id="sentenceHearBtn" style="flex-shrink: 0; padding: 8px 14px; background: rgba(122,208,224,.12); border: 1.5px solid rgba(122,208,224,.4); border-radius: 8px; color: #7AD0E0; cursor: pointer; font-weight: 600; white-space: nowrap; font-size: 0.85rem;" onclick="const e=document.getElementById(\'sentEn\');if(e){let t=e.textContent;if(t&&t!==\'—\'){t=t.replace(/<[^>]*>/g,\'\');if(t.trim())speak(t);}}">🔊 Hear</button>
       </div>
-      <div class="sent-zh" id="sentZh">—</div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <div class="sent-zh" id="sentZh" style="flex: 1;">—</div>
+        <button class="sent-hear-btn-zh" onclick="playSentenceAudioZh()" style="flex-shrink: 0; padding: 8px 14px; background: rgba(122,208,224,.12); border: 1.5px solid rgba(122,208,224,.4); border-radius: 8px; color: #7AD0E0; cursor: pointer; font-weight: 600; white-space: nowrap; font-size: 0.85rem;">🔊 Hear</button>
+      </div>
       <div class="sent-source" id="sentSource">—</div>
     </div>
 
@@ -3089,11 +3092,11 @@ function render() {
   let sentEn, sentZh, sentSource;
   if (S.sentTab === 0) {
     sentEn = highlightWord(entry.quote_en, entry.word);
-    sentZh = entry.quote_zh;
+    sentZh = highlightWord(entry.quote_zh, entry.word);
     sentSource = '— ' + BOOK_CONFIG.author + ', <em>' + BOOK_CONFIG.bookName + '</em> · ' + entry.chapter;
   } else {
     sentEn = highlightWord(entry.ex_en, entry.word);
-    sentZh = entry.ex_zh;
+    sentZh = highlightWord(entry.ex_zh, entry.word);
     sentSource = '— AI Example · Thematically aligned with <em>' + BOOK_CONFIG.bookName + '</em>';
   }
   document.getElementById('sentEn').innerHTML = sentEn;
@@ -4099,4 +4102,5 @@ if (VOCAB.length > 1) {
 </div>
 </body>
 </html>
+
 
