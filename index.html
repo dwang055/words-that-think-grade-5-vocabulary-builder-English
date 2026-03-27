@@ -1086,17 +1086,17 @@ footer {
     </div>
 
     <div class="sentence-tab-row">
-      <button class="sent-tab active" id="tabNovel">📖 Source Sentence</button>
-      <button class="sent-tab" id="tabAI">💡 Example</button>
+      <button class="sent-tab active" id="tabNovel">📖 Meaning</button>
+      <button class="sent-tab" id="tabAI">💡 Use</button>
       <button class="sent-tab" id="tabFlashcard">📇 Flashcard</button>
     </div>
 
     <div class="sentence-content" id="sentenceContent">
       <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
+        <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
         <div class="sent-en" id="sentEn" style="flex: 1;">—</div>
-        <button id="sentenceHearBtn" style="flex-shrink: 0; padding: 8px 14px; background: rgba(122,208,224,.12); border: 1.5px solid rgba(122,208,224,.4); border-radius: 8px; color: #7AD0E0; cursor: pointer; font-weight: 600; white-space: nowrap; font-size: 0.85rem;" onclick="const e=document.getElementById(\'sentEn\');if(e){let t=e.textContent;if(t&&t!==\'—\'){t=t.replace(/<[^>]*>/g,\'\');if(t.trim())speak(t);}}">🔊 Hear</button>
+        <button class="sent-hear-btn" onclick="playSentenceAudio()" style="flex-shrink: 0; padding: 8px 14px; background: rgba(122,208,224,.12); border: 1.5px solid rgba(122,208,224,.4); border-radius: 8px; color: #7AD0E0; cursor: pointer; font-weight: 600; white-space: nowrap; font-size: 0.85rem;">🔊 Hear</button>
       </div>
-      <div class="sent-zh" id="sentZh">—</div>
       <div class="sent-source" id="sentSource">—</div>
     </div>
 
@@ -3039,7 +3039,28 @@ function playCurrentSentenceAudio() {
     }
   } catch (e) { console.error('Audio error:', e); }
 }
-}
+
+function playSentenceAudio() {
+  try {
+    const sentEn = document.getElementById('sentEn');
+    if (sentEn) {
+      let text = sentEn.textContent;
+      if (text && text !== '—') {
+        text = text.replace(/<[^>]*>/g, '');
+        if (text.trim()) {
+          if ('speechSynthesis' in window) {
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'en-US';
+            u.rate = 0.85;
+            window.speechSynthesis.speak(u);
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Audio error:', e);
+  }
+}}
 
 function render() {
   if (!GROUPS.length || !GROUPS[S.gIdx] || !GROUPS[S.gIdx][S.wIdx]) {
@@ -3086,18 +3107,15 @@ function render() {
   document.getElementById('tabNovel').classList.toggle('active', S.sentTab === 0);
   document.getElementById('tabAI').classList.toggle('active', S.sentTab === 1);
 
-  let sentEn, sentZh, sentSource;
+  let sentEn, sentSource;
   if (S.sentTab === 0) {
     sentEn = highlightWord(entry.quote_en, entry.word);
-    sentZh = entry.quote_zh;
     sentSource = '';
   } else {
     sentEn = highlightWord(entry.ex_en, entry.word);
-    sentZh = entry.ex_zh;
     sentSource = '';
   }
   document.getElementById('sentEn').innerHTML = sentEn;
-  document.getElementById('sentZh').textContent = sentZh;
   document.getElementById('sentSource').innerHTML = sentSource;
 
   const sa = SYNAN[entry.word] || { syn: [], ant: [] };
