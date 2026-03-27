@@ -1227,7 +1227,7 @@ footer {
   </div>
 
   <footer>
-    <div class="footer-author">Created by Daniel Wang (dwang055@gmail.com) · Grade 5 Vocabulary Collection · For Educational Use · © 2026</div>
+    <div class="footer-author">Created by Daniel Wang (dwang055@gmail.com)· Grade 5 Vocabulary Collection · For Educational Use · © 2026</div>
     <div class="footer-quote">“The more that you read, the more things you will know. The more that you learn, the more places you'll go.”<br>Dr. Seuss, I Can Read With My Eyes Shut!</div>
   </footer>
 </div>
@@ -3995,13 +3995,6 @@ function toggleFlashcard() {
     content.innerHTML = '<span class="flashcard-pos">[' + pos + ']</span>' + entry.def_en;
     content.className = 'flashcard-content flashcard-def-en';
     inner.style.background = 'linear-gradient(160deg, rgba(26,74,112,.85), rgba(14,34,48,.95))';
-  } else if (flashcardState.side === 'def-en') {
-    flashcardState.side = 'def-zh';
-    label.textContent = 'Chinese Definition';
-    const pos2 = entry.part_of_speech || entry.pos || 'word';
-    content.innerHTML = '<span class="flashcard-pos">[' + pos2 + ']</span>' + entry.def_zh;
-    content.className = 'flashcard-content flashcard-def-zh';
-    inner.style.background = 'linear-gradient(160deg, rgba(50,34,90,.85), rgba(30,20,50,.95))';
   } else {
     flashcardState.side = 'word';
     label.textContent = 'Word';
@@ -4099,3 +4092,4 @@ if (VOCAB.length > 1) {
 </div>
 </body>
 </html>
+
