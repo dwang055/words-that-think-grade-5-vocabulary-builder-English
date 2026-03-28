@@ -312,6 +312,14 @@ button { font-family: inherit; color: var(--text); cursor: pointer; }
   border-radius: 3px;
   padding: 0 2px;
 }
+.sent-zh .hl {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--gold2);
+  background: rgba(240,192,64,.08);
+  border-radius: 3px;
+  padding: 0 2px;
+}
 .sent-source {
   margin-top: 10px;
   font-size: 0.7rem;
@@ -3044,19 +3052,13 @@ function playCurrentSentenceAudio() {
 }
 
 function playSentenceAudioZh() {
-  try {
-    const sentZh = document.getElementById('sentZh');
-    if (sentZh) {
-      let text = sentZh.textContent;
-      if (text && text.trim() && text !== '—') {
-        text = text.replace(/<[^>]*>/g, '');
-        if (text.trim()) {
-          speak(text);
-        }
-      }
+  const sentZh = document.getElementById('sentZh');
+  if (sentZh) {
+    let text = sentZh.textContent;
+    text = text.trim();
+    if (text && text !== '—') {
+      speak(text);
     }
-  } catch (e) {
-    console.error('Audio error:', e);
   }
 }}
 
@@ -4118,5 +4120,6 @@ if (VOCAB.length > 1) {
 </div>
 </body>
 </html>
+
 
 
