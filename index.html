@@ -3042,7 +3042,23 @@ function playCurrentSentenceAudio() {
     }
   } catch (e) { console.error('Audio error:', e); }
 }
-}
+
+function playSentenceAudioZh() {
+  try {
+    const sentZh = document.getElementById('sentZh');
+    if (sentZh) {
+      let text = sentZh.textContent;
+      if (text && text.trim() && text !== '—') {
+        text = text.replace(/<[^>]*>/g, '');
+        if (text.trim()) {
+          speak(text);
+        }
+      }
+    }
+  } catch (e) {
+    console.error('Audio error:', e);
+  }
+}}
 
 function render() {
   if (!GROUPS.length || !GROUPS[S.gIdx] || !GROUPS[S.gIdx][S.wIdx]) {
@@ -3100,7 +3116,7 @@ function render() {
     sentSource = '— AI Example · Thematically aligned with <em>' + BOOK_CONFIG.bookName + '</em>';
   }
   document.getElementById('sentEn').innerHTML = sentEn;
-  document.getElementById('sentZh').textContent = sentZh;
+  document.getElementById('sentZh').innerHTML = sentZh;
   document.getElementById('sentSource').innerHTML = sentSource;
 
   const sa = SYNAN[entry.word] || { syn: [], ant: [] };
